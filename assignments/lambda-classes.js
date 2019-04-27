@@ -1,150 +1,107 @@
-// CODE here for your Lambda Classes
+class person{
+  constructor(props){
+     
+      this.gender = props.gender
+      this.name = props.name
+      this.age = props.age
+      this.height = props.height
+      this.location =props.location
+  }
 
-// function GameObject(attributes){
-//     this.createdAt = attributes.createdAt;
-//     this.name = attributes.name;
-//     this.dimensions = attributes.dimensions;
-//   }
-  
-  //this is the prototype method destroy()
+  speak(props){
+      console.log(`hello my name is ${this.name} I am from ${this.location}`)
+  }
+}
 
-//   GameObject.prototype.destroy = function(){
-//     return `${this.name} was removed from the game.`
-//   }
-
-
-// function GameObject(attributes){
-//     this.createdAt = attributes.createdAt;
-//     this.name = attributes.name;
-//     this.dimensions = attributes.dimensions;
-//   }
-  
-//   GameObject.prototype.destroy = function(){
-//     return `${this.name} was removed from the game.`
-//   }
-  
- class GameObject{
-    constructor(attributes){
-        this.createdAt = attributes.createdAt;
-        this.name = attributes.name;
-        this.dimensions = attributes.dimensions;
-        
-    }
-
-    destroy(childA){
-        return `${this.name} was removed from the game.`
-    }
- }
-
- // second 
-
-    class CharacterStats extends GameObject{
-    constructor(childA){
-    super(childA)  
-    this.healthPoints = childA.healthPoints;
-    }
-  
-        takeDamage(childA){
-            return `${this.name} took damage`
-        }
-      
-    }
-
-// third
-
-  class Humanoid extends CharacterStats{
-    constructor(ha){
-    super(ha)
-    this.team = ha.team;
-    this.weapons = ha.weapons;
-    this.language = ha.language;
-    }
-
-        greet(){
-            return `${this.name} offers a greeting in ${this.language}`
-        }
-
-    }
-  
+class instructor extends person {
+  constructor(props){
+      super(props)
+      this.specialty = props.specialty;
+      this.favLanguage = props.favLanguage;
+      this.catchPhrase = props.catchPhrase;
+  }
+  demo(subject){
+      console.log(`today we are  learning about ${subject}`);
+  }
+  grade(subject,student){
+      console.log(`${student.name} earned a perfect score on ${subject} `);
+  }
+}
 
 
 
+class student extends person {
+  constructor(props){
+      super(props)
+      this.previousBackground = props.previousBackground;
+      this.className = props.className;
+      this.favSubjects =  props.favSubjects;  
 
 
+  }
+  listsSubjects(){
+     this.favSubjects.forEach(function(el){
+       console.log(el)
+    })
+  }
+  PRAssignment(subject){
+      return `${this.name} submitted a pr for ${subject} `
+  }
+
+  sprintChallenge(subject){
+      return `${this.name} has begun a sprint challenge on ${subject}`
+  }
+
+  }
 
 
+  class projectManager extends instructor {
+      constructor(props){
+          super(props)
+          this.gradClassName = props.gradClassName
+          this.favInstructor = props.favInstructor
 
+      }
 
-
+      standUp(slackChannel){
+          return `${this.name}: @${slackChannel} it's time for standup  `
+      }
+      debug(studentName, subject){
+          return `${this.name } debugs ${studentName.name}'s code on ${subject} `
+      }
+  }
   
 
 
+const fred = new instructor({
+  name: 'Fred',
+  location: 'Bedrock',
+  age: 37,
+  gender: 'male',
+  favLanguage: 'JavaScript',
+  specialty: 'Front-end',
+  catchPhrase: `Don't forget the homies`
+});
 
 
 
+const student1 = new student({
+  name: 'nathan',
+  location: 'Bedrock',
+  age: 37,
+  favSubjects: ['science', 'math', 'cs']
+})
 
- const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    healthPoints: 5,
-    name: 'Bruce',
-    team: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Tongue',
-  });
-
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    healthPoints: 15,
-    name: 'Sir Mustachio',
-    team: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Tongue',
-  });
-
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    healthPoints: 10,
-    name: 'Lilith',
-    team: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+const pm = new projectManager({
+  name: 'nathan',
+  location: 'Bedrock',
+  age: 37,
+  favSubjects: ['science', 'math', 'cs'],
+  gradClassName: 'web pt 6'
 
 
+ 
+ 
+})
 
-
-
-
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.healthPoints); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.team); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+console.log(pm.debug(student1,'science'))
